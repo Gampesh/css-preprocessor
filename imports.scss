@@ -1,0 +1,8 @@
+/* ============= multiple import  ============= */
+@import "extends", "control-stmt";
+
+/* ============= nested import ============= */
+
+#main {
+  @import "Partials/import";
+}

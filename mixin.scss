@@ -1,0 +1,115 @@
+/* ================= mixin without parameter ======================= */
+
+@mixin large-text {
+  font: {
+    family: Arial;
+    size: 20px;
+    weight: bold;
+  }
+  color: #ff0000;
+}
+
+.page-title {
+  @include large-text;
+  padding: 4px;
+  margin-top: 10px;
+}
+
+/* ================= mixin with parameter ======================= */
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+.box { @include border-radius(10px); }
+
+
+.box { @include border-radius(20px); }
+
+
+/* ================= mixin with default parameter ======================= */
+
+@mixin with-border($color, $width: 1px) {
+  border: {
+    color: $color;
+    width: $width;
+    style: dashed;
+  }
+}
+p {
+  @include with-border(blue);
+}
+h1 {
+  @include with-border(blue, 2px);
+}
+
+/* ================= mixin with variable parameter ======================= */
+@mixin box-shadow($shadows...) {
+  -moz-box-shadow: $shadows;
+  -webkit-box-shadow: $shadows;
+  box-shadow: $shadows;
+}
+
+.shadows {
+  @include box-shadow(0px 4px 5px #666, 2px 6px 10px #999);
+}
+
+/* ================= mixin with variable parameter (using map) ======================= */
+
+@mixin colors($text, $background, $border) {
+  color: $text;
+  background-color: $background;
+  border-color: $border;
+}
+
+$values: #ff0000, #00ff00, #0000ff;
+.primary {
+  @include colors($values...);
+}
+
+$value-map: (text: red, background: green, border: blue); // Variable name should be same as argument
+.secondary {
+  @include colors($value-map...);
+}
+
+/* ================= mixin call outside class/id ======================= */
+
+
+@mixin silly-links {
+  a {
+    color: blue;
+    background-color: red;
+  }
+}
+
+@include silly-links;
+
+/* ================= multiple mixin ======================= */
+
+@mixin compound {
+  @include highlighted-background;
+  @include header-text;
+}
+
+@mixin highlighted-background { background-color: #fc0; }
+@mixin header-text { font-size: 20px; }
+
+p {
+  @include compound;
+}
+
+
+
+/* ========== variable scope in mixin ============= */
+$color: white;
+@mixin colors($color: blue) {
+  background-color: $color;
+  @content;
+  border-color: $color;
+}
+.colors {
+  @include colors {color: $color};
+}

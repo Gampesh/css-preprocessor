@@ -1,0 +1,41 @@
+$font-stack: Helvetica, sans-serif;
+$primary-color: #333;
+
+body {
+  font: 100% $font-stack;
+  color: $primary-color;
+}
+
+@import "Partials/var";
+
+/*
+There are three situations where the / will be interpreted as division. These cover the vast majority of cases where division is actually used. They are:
+
+If the value, or any part of it, is stored in a variable or returned by a function.
+If the value is surrounded by parentheses, unless those parentheses are outside a list and the value is inside.
+If the value is used as part of another arithmetic expression.
+*/
+
+p {
+  font: 10px/8px;             // Plain CSS, no division
+  $width: 1000px;
+  width: $width/2;            // Uses a variable, does division
+  width: round(1.5)/2;        // Uses a function, does division
+  height: (500px/2);          // Uses parentheses, does division
+  margin-left: 5px + 8px/2px; // Uses +, does division
+  font: (italic bold 10px/8px); // In a list, parentheses don't count
+
+
+  $font-size: 12px;
+  $line-height: 30px;
+  font: #{$font-size}/#{$line-height}; // replace variable and does not perform division
+}
+
+/*  ====== Color operations =========== */
+p {
+  color: #010203 + #040506; /* computes 01 + 04 = 05, 02 + 05 = 07, and 03 + 06 = 09 */
+  color: #010203 * 2; /* computes 01 * 2 = 02, 02 * 2 = 04, and 03 * 2 = 06 */
+  color: #010203 + 2; /* computes 01 + 2 = 03, 02 + 2 = 04, and 03 + 2 = 05 */
+  color: #010203 - 2; /* computes 01 - 2 = 00, 02 - 2 = 00, and 03 - 2 = 01 */
+  color: rgba(255, 0, 0, 0.75) + rgba(0, 255, 0, 0.75);  // rgbA - must have the same alpha value, addition above 255 will rounded off to 255
+}

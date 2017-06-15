@@ -1,0 +1,65 @@
+nav {
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li { display: inline-block; }
+
+  a {
+    display: block;
+    padding: 6px 12px;
+    text-decoration: none;
+  }
+}
+
+.container {
+  width: 200px;
+  padding: 20px;
+  background: #eee;
+  border: 1px solid black;
+
+  > .content {
+    background: #ddd;
+  }
+}
+
+#main {
+  width: 97%;
+
+  p, div {
+    font-size: 2em;
+    a { font-weight: bold; }
+  }
+
+  pre { font-size: 3em; }
+}
+
+/* =================== Referencing Parent Selectors ======================== */
+
+nav a {
+  font-weight: bold;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+  body.firefox & {
+    font-weight: normal;
+  }
+}
+
+$selector: color;
+.foo.bar .baz.bang, .bip.qux {
+  $selector: &;
+}
+
+/* =================== Nested Properties ======================== */
+
+.funky {
+  font: {
+    family: Verdana;
+    size: 30em;
+    weight: bold;
+  }
+}
